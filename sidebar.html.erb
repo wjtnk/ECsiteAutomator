@@ -1,0 +1,60 @@
+<section class="content-header">
+        <h1>
+            出品管理
+<!--            <small>出品一覧</small>-->
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-home"></i>ホーム</li>
+            <li class="active"><i class="glyphicon glyphicon-list"></i> <b>商品出品設定</b></li>
+        </ol>
+    </section>
+
+
+    <section class="content">
+        <div class="row" id="list_container" name="list_container">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-list"></i>
+                        <h3 class="box-title">商品出品設定</h3>
+                        <a type="button" class="btn btn-primary" href="/user-products/product_add_local"><span class="glyphicon glyphicon-plus"></span>新規登録</a>
+
+                        <select name="republish-all" onchange="updateRepublish(this);" onfocus="this.selectedIndex=-1;">
+                            <option value="3">コメントのある商品停止</option>
+                            <option value="2">重複出品</option>
+                            <option value="1">再出品する</option>
+                            <option value="0">再出品しない</option>
+                            <option value="-1">コメントのある商品重複</option>
+                        </select>
+                    </div>
+
+
+                    <!-- <form action="#" onsubmit="return false" enctype="multipart/form-data" role="form" name="product_main" id="product_main" class="form-horizontal">
+                        <div class="box-body table-responsive  with-border" id="main_tbl_wrap" name="main_tbl_wrap"><table id="main_tbl" class="table table-hover"><thead><tr><th align="center" style="min-width:20px !important;"></th><th style="text-align: center;min-width:50px !important;padding-right: 0px">状況</th><th style="text-align: center;min-width:100px !important;padding-right: 0px">画像</th><th style="text-align: center;min-width:120px !important;padding-right: 0px">商品名</th><th style="text-align: center;width:70px !important;padding-right: 0px">価格</th><th style="text-align: center;width:70px !important;padding-right: 0px">在庫</th><th style="text-align: center;width:90px !important;padding-right: 0px">仕入れ価格</th><th style="text-align: center;width:70px !important;padding-right: 0px">送料</th><th style="text-align: center;min-width:60px !important;padding-right: 0px">再出品</th><th style="text-align: center;width:70px !important;padding-right: 0px">備考</th><th style="text-align: center;padding-right: 0px">管理番号</th><th style="text-align: center;min-width:30px !important;padding-right: 0px">操作</th></tr></thead><tbody><tr><td style="text-align:center;vertical-align:middle;padding-top:20px;" colspan="12"><div class="alert alert-warning alert-dismissable">データはありません。</div></td></tr></tbody></table></div>
+                    </form> -->
+                    <div class="box-footer text-right">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" onclick="RemoveCheckedProduct()" class="btn btn-danger btn-sm pull-left" style="margin-left: 15px" data-style="zoom-in">
+                                    再出品実行
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="loading_overlay" class="overlay" style="display: none;">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+<%= form_tag(account_re_exhibit_path, method: :get, class: "exmaple_class",id:"example_id") do %>
+   <%= select_tag 'note[point]', options_for_select(["1", "2", "3", "4", "5"]) %>
+   <%= submit_tag "追加" %>
+<% end %>

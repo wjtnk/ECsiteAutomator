@@ -1,0 +1,162 @@
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>
+                        商品詳細
+                    </h1>
+                    <table class="table">
+                      <thead>
+                        <tr class="table-active">
+                          <th scope="col">商品名</th>
+                          <th scope="col">
+                              <%=@item.item_name %>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="table-light">
+                          <th scope="row">商品説明</th>
+                          <td>
+                              <%=@item.description %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">画像</th>
+                          <td>
+                              <%= image_tag("/zip_store/" + @item.csv.to_s + "/exhibit/"  + @item.image1, :id => "photo_1_preview" , :size => "150x150") %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">販売価格</th>
+                          <td>
+                              <%=@item.price %>円
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">オタマートカテゴリー1</th>
+                          <td>
+                              <%=@item.category1 %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">オタマートカテゴリー2</th>
+                          <td>
+                              <%=@item.category1 %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">オタマートカテゴリー3</th>
+                          <td>
+                              <%=@item.category1 %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">商品の状態</th>
+                          <td>
+                              <%=@item.state %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">送料の表示</th>
+                          <td>
+                              <%=@item.ship_fee %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">配送方法</th>
+                          <td>
+                              <%=@item.ship_method %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">発送元の地域</th>
+                          <td>
+                              <%=@item.ship_from %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">発送日の目安</th>
+                          <td>
+                              <%=@item.ship_day %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">購入申込みの承諾</th>
+                          <td>
+                              <%=@item.purchase_application %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">値下げしませんを表示する</th>
+                          <td>
+                              <%=@item.discount %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">URL</th>
+                          <td>
+                              <%=@item.url %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                            <th scope="row">未返信コメント</th>
+                            <td>
+                                <% if @item.new_comment == true%>
+                                    <p>あり</p>
+                                <% elsif %>
+                                    <p>なし</p>
+                                <% end %>
+                            </td>
+                        </tr>
+                        <tr class="table-light">
+                            <th scope="row">総コメント数</th>
+                            <td><%=@item.count_comments %></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 text-center">
+                <%= link_to '商品一覧', @account,  class: "btn btn-outline-success", id: "publish_product" %>
+                <% unless @item.url.blank? %>
+                      <%= link_to '商品編集', edit_item_path(@item), class: "btn btn-outline-success", id: "cancel_preview" %>
+                      <div class="alert alert-dismissible alert-success">
+                          <button type="button" class="close" data-dismiss="alert">&times;</button>
+                          <strong>この商品は出品済みです</strong>
+                     </div>
+                  <% else %>
+                       <%= link_to 'この商品を出品する', exhibit_item_path(@item), class: "btn btn-outline-success", id: "publish_product" %>
+                <% end %>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <h2>コメント</h2>
+                <% if !@item.url.blank? %>
+                        <% @comments.each do |comment| %>
+                        <p>名前:<%= comment.name %></p>
+                        <p>内容:<%= comment.content %></p>
+                        <p>---------------------------------</p>
+                        <% end %>
+                          <p><%= link_to 'コメント取得', get_comment_item_path(@item), method: :post %></p>
+                        <%= render "comments/form" %>
+                <% elsif %>
+                        <div class="alert alert-dismissible alert-warning">
+                          <button type="button" class="close" data-dismiss="alert">&times;</button>
+                          <strong>まだ出品されていないためコメントの取得・投稿はできません</strong>
+                        </div>
+                <% end %>
+           </div>
+            <div class="col-lg-2"></div>
+        </div>
+   </div>

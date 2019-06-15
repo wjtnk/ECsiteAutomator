@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  csv: MyString
+  image1: MyString
+  image2: MyString
+  image3: MyString
+  image4: MyString
+  image5: MyString
+  image6: MyString
+  image7: MyString
+  image8: MyString
+  image9: MyString
+  image10: MyString
+  item_name: MyString
+  description: MyText
+  category1: 1
+  category2: 1
+  category3: 1
+  state: 1
+  ship_fee: 1
+  ship_method: 1
+  ship_from: 1
+  ship_day: 1
+  purchase_application: 1
+  discount: false
+  price: 1
+  account: one
+
+two:
+  csv: MyString
+  image1: MyString
+  image2: MyString
+  image3: MyString
+  image4: MyString
+  image5: MyString
+  image6: MyString
+  image7: MyString
+  image8: MyString
+  image9: MyString
+  image10: MyString
+  item_name: MyString
+  description: MyText
+  category1: 1
+  category2: 1
+  category3: 1
+  state: 1
+  ship_fee: 1
+  ship_method: 1
+  ship_from: 1
+  ship_day: 1
+  purchase_application: 1
+  discount: false
+  price: 1
+  account: two

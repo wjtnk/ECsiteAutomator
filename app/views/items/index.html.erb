@@ -1,0 +1,96 @@
+<section class="content-header">
+        <h1>
+            登録中の商品
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-home"></i>ホーム</li>
+            <li class="active"><i class="fa fa-comment"></i> <b>登録中の商品</b></li>
+        </ol>
+</section>
+
+<h3 class="box-title">登録中の商品の商品一覧</h3>
+                    <%= form_tag destroy_multi_account_items_path, method: :delete  ,class: "form-horizontal",  id: "product_main" do %>
+                        <div class="box-body table-responsive  with-border" id="main_tbl_wrap" name="main_tbl_wrap">
+                            <div id="main_tbl_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="main_tbl" class="table table-hover dataTable no-footer" role="grid" aria-describedby="main_tbl_info" border="1">
+                                        <thead>
+                                            <tr role="row">
+                                                <th align="center" style="padding-right: 0px; width: 20px;" class="sorting_disabled" rowspan="1" colspan="1" aria-label="">
+                                                    <%= check_box_tag "items_destroy_all[#{ @items.ids }]", @items.ids %>
+                                                </th>
+                                                <th style="text-align: center; padding-right: 0px; min-width: 100px !important; width: 100px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="画像: この列の昇順に">画像</th>
+                                                <th style="text-align: center; padding-right: 0px; min-width: 50px !important; width: 268px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="商品名: この列の昇順に">商品名</th>
+                                                <!-- <th style="text-align: center; padding-right: 0px; min-width: 250px !important; width: 250px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="出品日: この列の昇順に">出品日</th> -->
+                                                <th style="text-align: center; padding-right: 0px; min-width: 80px !important; width: 80px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="価格: この列の昇順に">価格</th>
+                                                <!-- <th style="text-align: center; padding-right: 0px; min-width: 100px !important; width: 100px;" class="sorting_desc" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="いいね数: この列の昇順に" aria-sort="descending">いいね数</th> -->
+                                                <th style="text-align: center; padding-right: 0px; min-width: 100px !important; width: 100px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="コメント: この列の昇順に">コメント</th>
+                                                <!-- <th style="text-align: center; padding-right: 0px; width: 70px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="備考: この列の昇順に">備考</th> -->
+                                                <!-- <th style="text-align: center; padding-right: 0px; width: 58px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="操作: この列の昇順に">操作</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <% @items.each do |item| %>
+                                                <tr role="row" class="odd">
+                                                    <td align="center" style="vertical-align: top;">
+                                                        <%= check_box_tag "items_destroy[#{ item.id }]", item.id %>
+                                                    </td>
+
+                                                        <td style="text-align: center;vertical-align:top;">
+                                                            <a href="/furiru-products/product_detail_edit?furiru_id=184794469">
+                                                                <%= image_tag("/zip_store/" + item.csv.to_s + "/exhibit/"  + item.image1, :id => "photo_1_preview", :style => "cursor: pointer;width:100px;") %>
+                                                            </a>
+                                                        </td>
+                                                        <td style="vertical-align:top;font-weight: bold">
+                                                            <%= link_to  item.item_name, item_path(item),  account_id:item.account_id %>
+                                                        </td>
+                                                        <td style="text-align: center;vertical-align:top">
+                                                            <div class="input-group input-group-sm" style="text-align: center"><%= item.price %>円</div>
+                                                        </td>
+                                                        <td style="text-align: center;vertical-align:top">
+                                                            <a id="comment_count_303" href="javascript:displayComments(303,2)">
+                                                                <% if item.new_comment %>
+                                                                       あり
+                                                                <% else %>
+                                                                       なし
+                                                                <% end %>
+                                                            </a>
+                                                                <br>
+                                                        </td>
+                                                </tr>
+                                            <% end %>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                                </div>
+                        </div>
+
+                            <div class="box-footer text-right">
+                                <div class="row">
+                                    <div class="col-xs-6 col-md-6">
+                                        <%= submit_tag "削除" , :class => "btn btn-danger btn-sm pull-left", :id => "save_product", :style=>"margin-left: 15px" %>
+                                    </div>
+
+                                    <div class="col-xs-6 col-md-6">
+                                        <% if @items.size > 0 %>
+                                            <%= link_to 'すべてのコメント取得', get_comment_account_path(@account), method: :post ,class: "btn btn-primary" %>
+                                        <% else %>
+                                            <a style="float: right;" type="button" class="btn btn-warning">コメントを取得できる商品がありません</a>
+                                        <% end %>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+
+                </div>
+            </div>
+        </div>
+</section>

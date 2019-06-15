@@ -1,0 +1,31 @@
+<header id="header">
+    <h2>新規登録</h2>
+</header>
+
+<h2>下記の項目を入力して下さい</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email, :"メールアドレス" %>
+  </div>
+
+  <div class="field">
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.label :password, :"パスワード(6文字以上)" %>
+  </div>
+
+  <div class="field">
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label :password_confirmation ,:"パスワードの確認" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "新規登録" %>
+  </div>
+<% end %>
+
+
+<%= render "devise/shared/links" %>

@@ -1,0 +1,107 @@
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+            </div>
+            <div class="col-lg-4 text-center">
+                <h1><商品一括登録></h1>
+                <h3>商品データのアップロード</h3>
+                <div>
+                    <%= render "items/form" %>
+                </div>
+
+                <div>
+                    <strong>開始時刻:</strong>
+                    <%= @account.start_time %>|
+                    <strong>最低間隔:</strong>
+                    <%= @account.min_interval %>|
+                    <strong>最高間隔:</strong>
+                    <%= @account.max_interval %>|
+                    <strong>ランダム出品:</strong>
+                    <%= @account.random_exhibit %>
+                </div>
+
+                <div class="text-center">
+                    <%= link_to '商品エクスポート(csv取得)',items_to_csv_path(@account),{format: :csv, :id =>"download_all_products" ,:class => "btn btn-warning"} %>
+                </div>
+            </div>
+            <div class="col-lg-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8 text-center">
+                <% if @items.size > 0 %>
+                        <p>
+                            <%= link_to 'すべて出品', multi_exhibit_account_path(@account),class: :"btn btn-outline-success" %>
+                            <%= link_to 'すべてのコメント取得', get_comment_account_path(@account), method: :post , class: :"btn btn-outline-success" %>
+                        </p>
+                <% else %>
+                        <div class="alert alert-dismissible alert-warning ">
+                          <button type="button" class="close" data-dismiss="alert">&times;</button>
+                          <h4 class="alert-heading">商品が登録されていません</h4>
+                        </div>
+                <% end %>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <% @items.each do |item| %>
+                <div class="col-lg-4">
+                    <table class="table">
+                      <thead>
+                        <tr class="table-active">
+                          <th scope="col">商品名</th>
+                          <th scope="col"><%= item.item_name %></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="table-light">
+                          <th scope="row">ステータス</th>
+                          <td>
+                              <% unless item.url.blank? %>
+                                出品済み
+                                <% else %>
+                                未出品=><%= link_to '出品する', exhibit_item_path(item) %>
+                              <% end %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">画像</th>
+                          <td>
+                              <%= image_tag("/zip_store/" + item.csv.to_s + "/exhibit/"  + item.image1, :id => "photo_1_preview", :size => "150x150") %>
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row">未返信コメント</th>
+                          <td>
+                              <% if item.new_comment %>
+                                     あり
+                              <% else %>
+                                     なし
+                              <% end %>
+                              (id:<%= item.id %>)
+                          </td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="row"></th>
+                          <td>
+                              <% unless item.id.blank? %>
+                                   <p>
+                                       <%= link_to '商品詳細', item_path(item),  account_id:item.account_id ,class: :"btn btn-outline-success" %>
+                                       <%= link_to '削除', item_path(item),  method: :delete, data: { confirm: '削除しますか？' } ,class: :"btn btn-outline-success"%>
+                                   </p>
+                              <% end %>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            <% end %>
+        </div>
+    </div>

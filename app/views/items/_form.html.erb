@@ -1,0 +1,18 @@
+
+
+<%= form_for(@account.items.new, url: polymorphic_path([@account, @account.items.new], html: {id:'product_upload_form', class:'orm-horizontal col-xs-11', style:''})) do |f| %>
+<div id="product_input_wrapper">
+
+    <div class="form-group" style="text-align:center;">
+        <label class="col-xs-3 control-label">商品ファイル(zip形式) </label>
+        <div class="col-xs-8 control-label">
+             <%= f.file_field :csv, :class => 'form-control input-sm',:id => 'product_file' %>
+        </div>
+    </div>
+
+    <div class="form-group" style="text-align:center;">
+        <!-- <button type="button" onclick="javascript:uploadProduct()" id="publish_upload" name="publish_upload" class="btn btn-success" style="float:none; margin: 0 auto">アップロード</button> -->
+         <%= f.submit 'アップロード', :class => 'btn btn-success',  :id => "publish_upload"  %>
+    </div>
+</div>
+<% end %>

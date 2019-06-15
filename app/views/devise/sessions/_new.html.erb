@@ -1,0 +1,71 @@
+<div class="wrapper">
+    <section class="content">
+<div class="login-box">
+    <!-- BEGIN Login Form -->
+
+    <div class="login-box-body">
+        <div class="login-logo">
+            <a href="javascript:void(0)">ログイン</a>
+        </div><!-- /.login-logo -->
+
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                  <% if devise_mapping.rememberable? -%>
+                    <div class="field">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :remember_me,:"ログイン情報を保持する" %>
+                    </div>
+                  <% end %>
+                  <div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>				<!-- error message -->
+                  <div class="form-group has-feedback">
+                                          <!-- END error message -->
+                      <div class="form-group has-feedback">
+                          <div class="input-group_nouse">
+                              <div class="input text">
+                                    <!-- <input type="text" name="username" class="form-control" placeholder="ユーザーIDを入力してください。" id="username"/> -->
+                                  <%= f.email_field :email, autocomplete: "email",:class => 'form-control',:id => 'username',:placeholder =>"メールアドレスを入力してください" %>
+                                    <%# <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                                    <%# <%= f.label :email , :"メールアドレス"%>
+                              </div>
+                          </div>
+                          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                      </div>
+                      <div class="form-group has-feedback">
+                          <div class="input-group_nouse">
+                              <div class="input password">
+                                <!-- <input type="password" name="password" class="form-control" placeholder="パスワードを入力してください。" id="password"/> -->
+                                  <%= f.password_field :password, autocomplete: "current-password",:class => 'form-control',:id => 'password',:placeholder =>"パスワードを入力してください" %>
+                                  <%# <%= f.label :password , :"パスワード"%>
+                              </div>
+                          </div>
+                           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                      </div>
+
+                      <div class="row" style="margin:0px;">
+                          <div class="col-xs-5 fix-format" style ="width:100%">
+
+                              <!-- <button type="submit" onclick="return check_data();" name="submit" class="btn btn-primary btn-block btn-flat">
+                                  ログイン&nbsp;<i class="fa fa-sign-in"></i>
+                              </button> -->
+                               <%= f.submit 'ログイン', :class => 'btn btn-primary btn-block btn-flat' %>
+
+                          </div>
+                      </div>
+                  </div>
+                <% end %>
+
+                <%= render "devise/shared/links" %>
+
+    </div>
+
+    <style>
+        .input-group-addon{font-size: 12px;}
+        .form-control{font-size: 12px;}
+        .btn{font-size: 12px}
+        .login-logo, .register-logo{font-size:30px;}
+        .pull-right{float: right;}
+    </style>
+    <!-- END Login Form -->
+</div><!-- /.login-box -->
+</section>
+
+</div>

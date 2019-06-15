@@ -1,0 +1,311 @@
+<section class="content-header">
+        <h1>
+            未出品の商品
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-home"></i>ホーム</li>
+            <li class="active"><i class="fa fa-comment"></i> <b>未出品の商品</b></li>
+
+        </ol>
+</section>
+
+    <!-- Main content -->
+<section class="content">
+        <div class="row" id="list_container" name="list_container">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-list"></i>
+                        <h3 class="box-title">未出品の商品一覧</h3>
+                        <!-- <a style="float: right;" type="button" class="btn btn-primary" onclick="SynchronousProducts()">
+                            <span class="glyphicon glyphicon-refresh"></span> 同期する
+                        </a> -->
+
+                        <% if @items_not_exhibited.size > 0 %>
+                                <%# <%= link_to 'すべてのコメント取得', get_comment_account_path(@account), method: :post ,class: "btn btn-primary" ,style: "float: right;" %>
+                                <%= link_to 'すべて出品', multi_exhibit_account_path(@account) ,class: "btn btn-primary" ,style: "float: right;" %>
+                        <% else %>
+                                <a style="float: right;" type="button" class="btn btn-warning">出品できる商品がありません</a>
+                        <% end %>
+                        <br><br>
+
+                        <ul class="nav nav-tabs">
+                         <!-- <li class="disabled">
+                             <a href="#">メルカリ</a>
+                         </li> -->
+
+                            <li class="active">
+                                <a href="/furiru-products/product-comment" style="background-color: #3D8DBC; color: white">オタマート</a>
+                            </li>
+
+                            <!-- <li class="disabled">
+                                <a href="#">旧ラクマ</a>
+                            </li> -->
+
+                        </ul>
+                    </div>
+
+
+
+<!-- ####################### -->
+                    <!-- <form action="#" onsubmit="return false" enctype="multipart/form-data" role="form" name="product_main" id="product_main" class="form-horizontal"> -->
+                    <%= form_tag destroy_multi_account_items_path, method: :delete  ,class: "form-horizontal",  id: "product_main" do %>
+                        <div class="box-body table-responsive  with-border" id="main_tbl_wrap" name="main_tbl_wrap">
+                            <div id="main_tbl_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                                <!-- <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="dataTables_length" id="main_tbl_length">
+                                                <label>
+                                                    <select name="main_tbl_length" aria-controls="main_tbl" class="form-control input-sm">
+                                                        <option value="5">5</option>
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                        <option value="-1">すべて</option>
+                                                    </select> 件表示
+                                                </label>
+                                        </div>
+                                　</div>
+                                    <div class="col-sm-6">
+                                        <div id="main_tbl_filter" class="dataTables_filter">
+                                            <label>検索:
+                                                <input type="search" class="form-control input-sm" placeholder="" aria-controls="main_tbl">
+                                            </label>
+                                        </div>
+                                    </div>
+                            　</div> -->
+
+
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="main_tbl" class="table table-hover dataTable no-footer" role="grid" aria-describedby="main_tbl_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th align="center" style="padding-right: 0px; width: 20px;" class="sorting_disabled" rowspan="1" colspan="1" aria-label="">
+                                                    <!-- <input type="checkbox" id="flowcheckall" onchange="checkAll(this)"> -->
+                                                    <%= check_box_tag "items_destroy_all[#{ @items_not_exhibited.ids }]", @items_not_exhibited.ids %>
+                                                </th>
+                                                <th style="text-align: center; padding-right: 0px; min-width: 100px !important; width: 100px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="画像: この列の昇順に">画像</th>
+                                                <th style="text-align: center; padding-right: 0px; min-width: 50px !important; width: 268px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="商品名: この列の昇順に">商品名</th>
+                                                <!-- <th style="text-align: center; padding-right: 0px; min-width: 250px !important; width: 250px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="出品日: この列の昇順に">出品日</th> -->
+                                                <th style="text-align: center; padding-right: 0px; min-width: 80px !important; width: 80px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="価格: この列の昇順に">価格</th>
+                                                <!-- <th style="text-align: center; padding-right: 0px; min-width: 100px !important; width: 100px;" class="sorting_desc" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="いいね数: この列の昇順に" aria-sort="descending">いいね数</th> -->
+                                                <th style="text-align: center; padding-right: 0px; min-width: 100px !important; width: 100px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="コメント: この列の昇順に">コメント</th>
+                                                <!-- <th style="text-align: center; padding-right: 0px; width: 70px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="備考: この列の昇順に">備考</th> -->
+                                                <!-- <th style="text-align: center; padding-right: 0px; width: 58px;" class="sorting" tabindex="0" aria-controls="main_tbl" rowspan="1" colspan="1" aria-label="操作: この列の昇順に">操作</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <% @items_not_exhibited.each do |item| %>
+                                                            <tr role="row" class="odd">
+                                                                <td align="center" style="vertical-align: top;">
+                                                                    <!-- <input onchange="selectproduct(this)" type="checkbox" id="check184794469"> -->
+                                                                    <%= check_box_tag "items_destroy[#{ item.id }]", item.id %>
+                                                                </td>
+
+                                                                    <td style="text-align: center;vertical-align:top;">
+                                                                        <a href="/furiru-products/product_detail_edit?furiru_id=184794469">
+                                                                            <%= image_tag("/zip_store/" + item.csv.to_s + "/exhibit/"  + item.image1, :id => "photo_1_preview", :style => "cursor: pointer;width:100px;") %>
+                                                                            <!-- <img style="cursor: pointer;width:100px;" src="https://img.fril.jp/img/184794469/s/527652437.jpg"> -->
+                                                                        </a>
+                                                                    </td>
+                                                                    <td style="vertical-align:top;font-weight: bold">
+                                                                        <%= link_to  item.item_name, item_path(item),  account_id:item.account_id %>
+                                                                    </td>
+                                                                    <!-- <td style="text-align: center;vertical-align:top">2018-11-25 03:49:59</td> -->
+                                                                    <td style="text-align: center;vertical-align:top">
+                                                                        <div class="input-group input-group-sm" style="text-align: center"><%= item.price %>円</div>
+                                                                    </td>
+                                                                    <!-- <td style="text-align: center;vertical-align:top" class="sorting_1">7</td> -->
+                                                                    <td style="text-align: center;vertical-align:top">
+                                                                        <a id="comment_count_303" href="javascript:displayComments(303,2)">
+                                                                            <% if item.new_comment %>
+                                                                                   あり
+                                                                            <% else %>
+                                                                                   なし
+                                                                            <% end %>
+                                                                        </a>
+                                                                            <br>
+                                                                    </td>
+                                                                    <!-- <td style="text-align: center;vertical-align:top">-</td> -->
+                                                                    <!-- <td style="padding-right: 0;vertical-align: top">
+                                                                            <input type="button" value="出品中" class="btn btn-danger btn-sm">
+                                                                    </td> -->
+                                                            </tr>
+                                            <% end %>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                                <!-- <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="dataTables_info" id="main_tbl_info" role="status" aria-live="polite">
+                                            1,155 件中 1 から 5 まで表示
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="main_tbl_paginate">
+                                            <ul class="pagination">
+                                                <li class="paginate_button previous disabled" id="main_tbl_previous">
+                                                    <a href="#" aria-controls="main_tbl" data-dt-idx="0" tabindex="0">前</a>
+                                               </li>
+                                                <li class="paginate_button active">
+                                                    <a href="#" aria-controls="main_tbl" data-dt-idx="1" tabindex="0">1</a>
+                                                </li>
+                                                <li class="paginate_button "><a href="#" aria-controls="main_tbl" data-dt-idx="2" tabindex="0">2</a>
+                                                </li>
+                                                <li class="paginate_button ">
+                                                    <a href="#" aria-controls="main_tbl" data-dt-idx="3" tabindex="0">3</a>
+                                                </li>
+                                                <li class="paginate_button ">
+                                                        <a href="#" aria-controls="main_tbl" data-dt-idx="4" tabindex="0">4</a>
+                                                </li>
+                                                <li class="paginate_button ">
+                                                    <a href="#" aria-controls="main_tbl" data-dt-idx="5" tabindex="0">5</a>
+                                                </li>
+                                                <li class="paginate_button disabled" id="main_tbl_ellipsis">
+                                                   <a href="#" aria-controls="main_tbl" data-dt-idx="6" tabindex="0">…</a>
+                                                </li>
+                                                <li class="paginate_button ">
+                                                    <a href="#" aria-controls="main_tbl" data-dt-idx="7" tabindex="0">231</a>
+                                                </li>
+                                                <li class="paginate_button next" id="main_tbl_next">
+                                                    <a href="#" aria-controls="main_tbl" data-dt-idx="8" tabindex="0">次</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                               </div> -->
+
+                                </div>
+                        </div>
+
+                        <div class="box-footer text-right">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <!-- <button type="button" onclick="deleteProducts()" class="btn btn-danger btn-sm pull-left" style="margin-left: 15px" data-style="zoom-in" id="save_product" name="save_product"> -->
+                                    <!-- <button type="button" class="btn btn-danger btn-sm pull-left" style="margin-left: 15px" data-style="zoom-in" id="save_product" name="save_product">
+                                        削除
+                                    </button> -->
+                                    <%= submit_tag "削除" , :class => "btn btn-danger btn-sm pull-left", :id => "save_product", :style=>"margin-left: 15px" %>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- </form> -->
+                    <% end %>
+
+                    <div id="loading_overlay" class="overlay" style="display: none;">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<div class="modal fade" id="comments_view_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content alert" style="display: inline-block;">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title text-red"> コメント</h3>
+            </div>
+
+            <div class="modal-body">
+                <div class="box-body table-responsive with-border" id="main_comment_tbl_wrap" name="main_comment_tbl_wrap">
+                    <table id="main_comment_tbl" class="table table-hover">
+                    </table>
+                    <br>
+                    <div class="form-group row pattern-comment" style="margin: 0 auto;text-align: left;">
+                        <select class="input-sm select2_single pull-left" style="display: block;width:auto" tabindex="-1" onchange="changePattern(this)" id="pattern">
+                            <option value="">登録した定型文一覧</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group row" style="width:95%;">
+                        <textarea maxlength="400" class="clear-text content-pattern form-control" placeholder="コメントを入力してください。400文字まで（必須）" id=""></textarea>
+                    </div>
+                    <div class="form-group row" style="width:95%;">
+                        <button class="btn btn-primary btn-sm pull-left" style="margin-left: 15px" onclick="javascript:sendComment(,)">送信</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer clearfix">
+
+            </div>
+
+            <div class="overlay-wrapper">
+                <div id="loading_overlay2" class="overlay" style="display: none;">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="confirm_sale_view_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content alert" style="display: inline-block;">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title text-red">コメント</h3>
+            </div>
+
+            <div class="modal-body">
+                <div class="box-body table-responsive with-border" id="main_confirm_sale_tbl_wrap" name="main_comment_tbl_wrap">
+                    <!--<table id="main_confirm_sale_tbl" class="table table-hover" ></table>-->
+
+                    <!-- <br>-->
+                    <!--<div class="form-group row" style="width:95%;">
+                        <button onclick="javascript:sendComment({{item_index}})" class="btn btn-primary btn-sm pull-left" style="margin-left: 15px">送信</button>
+                    </div>-->
+
+                </div>
+            </div>
+
+            <div class="modal-footer clearfix">
+
+            </div>
+
+            <div class="overlay-wrapper">
+                <div id="loading_overlay3" class="overlay" style="display: none;">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="product_image_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content alert">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title text-red"> 商品画像</h3>
+            </div>
+
+            <div class="modal-body">
+
+                <div id="product_image" class="form-group" style="text-align: center">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

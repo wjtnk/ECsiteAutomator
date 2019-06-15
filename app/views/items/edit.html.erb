@@ -1,0 +1,200 @@
+<section class="content-header">
+        <h1>
+            商品編集
+        </h1>
+        <ol class="breadcrumb">
+            <li>ホーム</li>
+            <li class="active"><b>商品編集</b></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row" id="list_container" name="list_container">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">商品編集</h3>
+                    </div>
+
+                    <div class="box-body table-responsive  with-border" id="main_wrap">
+
+                        <%= form_for(@item, html: {id:'product_publish_form', class:'form-horizontal col-xs-11 fv-form fv-form-bootstrap', style: "float:none; margin: 0 auto"}) do |f| %>
+                        <!-- <form class="form-horizontal col-xs-11 fv-form fv-form-bootstrap" style="float:none; margin: 0 auto" id="product_publish_form" method="post" enctype="multipart/form-data" novalidate="novalidate"><button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button> -->
+                            <div id="product_input_wrapper">
+                                <div class="form-group has-feedback">
+
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">商品名 :<br><span style="font-size: 10px; color:gray;">(商品名は40文字未満)</span></label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :item_name, :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">商品説明 :<br><span style="font-size: 10px; color:gray;">(商品説明は1000文字未満)</span></label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_area :description, :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">販売価格 :<br><span style="font-size: 10px; color:gray;">(300~500,000)</span></label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :price, :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group photo_1 has-feedback">
+                                                    <label class="col-xs-3 control-label">商品画像 : <br><span style="font-size: 10px; color:gray;">(商品画像は4枚まで可能)</span></label>
+                                                    <div class="col-xs-3">
+                                                        <!-- <img src="/img/data/product/furiru/184290158_1.jpg" name="photo_1_preview" id="photo_1_preview" style="width:100%; border:1px solid #d2d6de"> -->
+                                                        <%= image_tag("/zip_store/" + @item.csv.to_s + "/exhibit/"  + @item.image1, :id => "photo_1_preview") %>
+                                                        <!-- <img src="/img/data/product/furiru/184290158_1.jpg" style="display: none" id="default_photo"> -->
+                                                        <!-- <input type="hidden" value="184290158_1.jpg" name="photo1" id="photo1">
+                                                        <input type="hidden" value="526249517" name="photo_id_1" id="photo_id_1"> -->
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <!-- <input type="file" class="form-control input-sm product_photo" name="photo_1" id="photo_1" data-fv-field="photo_1"> -->
+                                                        <%= f.file_field :image1, :class => 'form-control input-sm product_phot' %>
+                                                    </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">オタマートカテゴリー1 :</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :category1 , :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">オタマートカテゴリー2 :</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :category2 , :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">オタマートカテゴリー3 :</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :category3 , :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">タグ:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :tags, :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">商品の状態:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :state , :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">送料の表示:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :ship_fee  , :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">配送方法:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :ship_method  , :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">発送元の地域:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :ship_from , :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">発送日の目安:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :ship_day , :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">購入申込みの承諾:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :purchase_application , :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">値下げしませんを表示する:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :discount, :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">URL:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :url, :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">値下げしませんを表示する:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :discount, :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-feedback">
+                                                <label class="col-xs-3 control-label" style="padding-top: 0;">総コメント数:</label>
+                                                <div class="col-xs-8">
+                                                    <!-- <input type="text" class="form-control input-sm" name="product_name" id="product_name" value="<%#=@item.item_name %>" data-fv-field="product_name"> -->
+                                                    <%= f.text_field :count_comments, :class => 'form-control input-sm',:id => 'product_name' %>
+                                                </div>
+                                            </div>
+
+                                </div>
+
+                                    <div class="form-group" style="text-align:center;">
+                                        <%= f.submit '商品編集完了', :class => 'btn btn-success',  :id => "publish_upload"  %>
+                                    </div>
+                                </div>
+                        <!-- </form> -->
+                        <% end %>
+
+                    </div>
+
+                    <div id="loading_overlay" class="overlay" style="display: none;">
+                        <!--                        <img class="fa" src="./images/lib/ajax-loader1.gif">-->
+                        <!-- <i class="fa fa-refresh fa-spin"></i> -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,16 @@
+
+<h2>コメント投稿</h2>
+
+<%= form_for(@item.comments.new, url: polymorphic_path([@item, @item.comments.new])) do |f| %>
+<!-- <p>
+  <%= f.label :name, "名前" %><br />
+  <%= f.text_field  :name %>
+</p> -->
+<p>
+  <!-- <%= f.label :content, "コメント" %><br /> -->
+  <%= f.text_area  :content %>
+</p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

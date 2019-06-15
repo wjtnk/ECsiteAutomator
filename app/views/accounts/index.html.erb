@@ -1,0 +1,89 @@
+<section class="content-header">
+    <h1>
+        アカウント管理
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            ホーム
+        </li>
+        <li class="active">
+            <b>アカウント管理</b>
+        </li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row" id="list_container">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">アカウント一覧</h3>
+                </div>
+
+                <div class="box-body" id="main_tbl_wrap">
+                    <div class="col-lg-2" style="padding: 0;">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">契約状態</div>
+                            <div class="panel-body" style="min-height: 150px">
+                                <% if current_user.max_account > current_user.accounts.size%>
+                                     <p><%= link_to 'オタマートアカウント登録', new_account_path %></p>
+                                 <% else %>
+                                     <p>アカウント数の上限に達しています。作成できません</p>
+                                <% end %>
+                                基本契約:<%= current_user.max_account  %><br>
+                                残り枠:<%= current_user.max_account - current_user.accounts.size %><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-10">
+                        <div id="mainTbl_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="dataTables_length" id="mainTbl_length">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id="mainTbl_filter" class="dataTables_filter">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                    <table id="mainTbl" class="table table-hover table-responsive  with-border dataTable no-footer" role="grid" aria-describedby="mainTbl_info" border="1">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 40px;">No</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 192px;">オタマートアカウントID</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 104px;">メールアドレス</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 104px;">パスワード</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 49px;">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% @accounts.each do |account| %>
+                                                    <tr role="row" class="odd">
+                                                        <td><%= account.id %></td>
+                                                        <td></td>
+                                                        <td><%= account.account_email %></td>
+                                                        <td><%= account.account_password %></td>
+                                                        <td>
+                                                            <%= link_to '詳細', account , class: "btn btn-primary btn-sm" , style: "display:block;margin-bottom:5px;"  %>
+                                                            <%= link_to '編集', edit_account_path(account) , class: "btn btn-danger btn-sm", style: "display:block;margin-bottom:5px;" %>
+                                                            <%= link_to '削除', account_path(account),method: :delete, data: { confirm: '削除しますか？' } , class: "btn btn-warning btn-sm", style: "display:block;margin-bottom:5px;" %>
+                                                        </td>
+                                                    </tr>
+                                            <% end %>
+                                        </tbody>
+
+                                    </table>
+                    </div>
+                </div>
+
+                <div id="loading_overlay" class="overlay" style="display: none;">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

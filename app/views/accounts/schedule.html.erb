@@ -1,0 +1,160 @@
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        スケジュール
+<!--            <small>User Management</small>-->
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <!-- <i class="fa fa-home"></i> -->
+            ホーム
+        </li>
+        <li class="active">
+            <!-- <i class="fa fa-calendar"></i>  -->
+            <b>スケジュール</b>
+        </li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row" id="list_container" name="list_container">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <!-- <i class="fa fa-calendar"></i> -->
+                    <h3 class="box-title">スケジュール</h3>
+                </div>
+                <div class="alert alert-info col-xs-7" style="float: none; margin: 0 auto 20px; display: none;">
+                    <p style="font-size: 16px;">
+                        保存しました。
+                    </p>
+                </div>
+
+                <div class="alert alert-warning col-xs-7" style="float: none; margin: 0 auto 20px; display: none;">
+                    <!-- <h3 style="margin-top: 0px; ">ごめんなさい!</h3>-->
+                </div>
+
+                <% if @account.errors.any? %>
+                    <div id="error_explanation">
+                      <h2><%= @account.errors.count %>件のエラーが発生したため保存ができませんでした。</h2>
+                      <ul>
+                      <% @account.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                      <% end %>
+                      </ul>
+                    </div>
+                <% end %>
+
+
+                <%= form_for @account , html: {class: 'form-horizontal col-xs-7' , id: "user_setting_form" , style: "float:none; margin: 0 auto"} do |f| %>
+                    <div style="display:none;"><input type="hidden" name="_method" value="PUT"/></div>
+                    <input type="hidden" name="product_current_count" id = "product_current_count" value="">
+                    <div class="form-group">
+                        <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">出品開始時刻 : <br/><span style="font-size: 10px; color:gray;">(24時間表記:0~23）</span></label>
+                        <div class="col-xs-8">
+                            <!-- <input type="text" name="start_hour" class="form-control input-sm" maxlength="2" oninput="checktime(this);" id="start-hour" value="0"/> -->
+                             <%= f.select(:start_time, [  [1, 1], [2, 2], [3, 3], [4, 4],[5, 5], [6, 6],[7, 7], [8, 8],[9, 9], [10, 10],[11, 11], [12, 12], [13, 13], [14, 14],[15, 15], [16, 16],[17, 17], [18, 18],[19, 19], [20, 20], [21, 21], [22, 22], [23, 23], [24, 24]] ,  { class: "form-control input-sm", id: "start-hour" }) %>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label class="col-xs-3 control-label">再出品間隔 : <br/><span style="font-size: 10px; color:gray;">(単位:時)</span></label>
+                        <div class="col-xs-8"><input type="text" name="publish_interval" class="form-control input-sm" maxlength="2" oninput="checkNumber(this);" required="required" id="publish-interval" value="2"/></div>
+                     </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">一日の最大出品回数 :</label>
+                        <div class="col-xs-8"><input type="text" name="repeat_count" class="form-control input-sm" maxlength="2" oninput="checkNumber(this);" id="repeat-count" value="10"/></div>
+                     </div> -->
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">最低間隔 : <br/><span style="font-size: 10px; color:gray;">(単位:分)</span></label>
+                        <div class="col-xs-8">
+                            <!-- <input type="text" name="republish_interval_min" class="form-control input-sm" maxlength="2" oninput="checkNumber(this);" required="required" id="republish-interval-min" value="15"/> -->
+                            <%= f.text_field :min_interval ,  { class: "form-control input-sm", id: "republish-interval-min" } %><br>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">最大間隔 : <br/><span style="font-size: 10px; color:gray;">(単位:分)</span></label>
+                        <div class="col-xs-8">
+                            <!-- <input type="text" name="republish_interval_max" class="form-control input-sm" maxlength="2" oninput="checkNumber(this);" required="required" id="republish-interval-max" value="20"/> -->
+                            <%= f.text_field :max_interval ,  { class: "form-control input-sm", id: "republish-interval-max" } %><br>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label class="col-xs-3 control-label">今月の目標  : <br/><span style="font-size: 10px; color:gray;">(単位:円)</span></label>
+                        <div class="col-xs-8"><input type="text" name="target_of_month" class="form-control input-sm" maxlength="11" oninput="checkNumber(this);" required="required" id="target-of-month" value="0"/></div>
+                    </div> -->
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">ランダム出品 : <br/></label>
+                        <div class="col-xs-8">
+                            <!-- <input id="switch_random_order" name="switch_random_order" type="checkbox" data-label-text="ランダム出品有効" > -->
+                            <%= f.select(:random_exhibit, [["しない", 0], ["する", 1]] ,  { class: "form-control input-sm", id: "switch_random_order" , type:"checkbox"}) %><br>
+                        </div>
+                    </div>
+
+                <div class="form-group">
+                        <button type="submit" class="btn btn-success" style="float:none;display:block;margin:0 auto;">
+                            <!-- <i class="fa fa-save (alias)"></i> -->
+                             保存
+                        </button>
+                        <%# <%= f.submit "保存" %>
+                    </div>
+                <% end %>
+
+
+
+                <div id="loading_overlay" class="overlay" style="display: none;">
+<!--                        <img class="fa" src="./images/lib/ajax-loader1.gif">-->
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+
+                <div class="box-footer">
+                    <div class="box-header with-border">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<%# <%= form_for @account do |f| %>
+<%# if @account.errors.any? %>
+    <!-- <div id="error_explanation">
+      <h2><%= @account.errors.count %>件のエラーが発生したため保存ができませんでした。</h2>
+      <ul> -->
+      <%# @account.errors.full_messages.each do |msg| %>
+        <!-- <li><%#= msg %></li> -->
+      <%# end %>
+      <!-- </ul>
+    </div> -->
+<%# end %>
+          <%#=# f.label :start_time, "開始時刻 " %>
+          <%#=# f.select(:start_time, [  [1, 1], [2, 2], [3, 3], [4, 4],[5, 5], [6, 6],[7, 7], [8, 8],[9, 9], [10, 10],[11, 11], [12, 12], [13, 13], [14, 14],[15, 15], [16, 16],[17, 17], [18, 18],[19, 19], [20, 20], [21, 21], [22, 22], [23, 23], [24, 24]]) %><br>
+
+          <%#= f.label :min_interval, "最低間隔（単位：分）" %>
+          <%#= f.text_field :min_interval %><br>
+
+          <%#= f.label :max_interval,   "最高間隔（単位：分）" %>
+          <%#= f.text_field :max_interval %><br>
+
+          <%#= f.label :random_exhibit, "ランダム出品 " %>
+          <%#= f.select(:random_exhibit, [["しない", 0], ["する", 1]]) %><br>
+
+          <%#=# f.submit "保存" %>
+
+<%#end %>
